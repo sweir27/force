@@ -94,10 +94,10 @@ bootstrap = ->
       if saleId
         fetchMeData(meQuery, req.user, saleId)
           .then (meData) ->
-            res.render 'index', extend data, meData
+            res.render 'index', extend data, meData, { isAdmin: res.locals.sd.CURRENT_USER?.type is 'Admin' }
           .catch next
       else
-        res.render 'index', data
+        res.render 'index', extend data, { isAdmin: res.locals.sd.CURRENT_USER?.type is 'Admin' }
     .catch next
 
 @acquire = (req, res, next) ->

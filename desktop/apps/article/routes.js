@@ -33,6 +33,14 @@ export async function index (req, res, next) {
       return res.redirect(`/article/${article.slug}`)
     }
 
+    if (
+      article.layout === 'video' &&
+      article.media &&
+      !article.media.published
+    ) {
+      return next()
+    }
+
     const isSuper = article.is_super_article || article.is_super_sub_article
     const superArticle = new Article()
     const superSubArticles = new Articles()
@@ -188,7 +196,11 @@ export const subscribedToEditorial = (email) => {
       if (err) {
         return resolve(false)
       } else {
-        if (response.vars && response.vars.receive_editorial_email) {
+        if (
+          response.vars &&
+          response.vars.receive_editorial_email &&
+          response.vars.email_frequency === 'daily'
+        ) {
           resolve(true)
         } else {
           resolve(false)
