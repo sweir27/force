@@ -10,6 +10,8 @@ function Banner (props) {
   const {
     auction,
     coverImage,
+    hasEndTime,
+    isAuction,
     isClosed,
     isLiveOpen,
     isMobile,
@@ -28,6 +30,7 @@ function Banner (props) {
   }
 
   const b = block('auction-Banner')
+  const type = isAuction ? 'Auction' : 'Sale'
 
   return (
     <div
@@ -39,7 +42,7 @@ function Banner (props) {
         style={{ backgroundImage: `url('${coverImage}')` }}
       />
       {(() => {
-        if (isLiveOpen) {
+        if (isLiveOpen && isAuction) {
           return (
             <div className={b('live-details')}>
               <h1>
@@ -51,10 +54,20 @@ function Banner (props) {
               </a>
             </div>
           )
-        } else {
+        } else if (isClosed) {
+          return (
+            <div className={b('closed')}>
+              <div>
+                {type} Closed
+              </div>
+            </div>
+          )
+        } else if (hasEndTime) {
           return (
             <ClockView
               model={auction}
+              modelName={type}
+              closedText={type + ' Closed'}
             />
           )
         }
@@ -66,6 +79,8 @@ function Banner (props) {
 Banner.propTypes = {
   auction: PropTypes.object.isRequired,
   coverImage: PropTypes.string.isRequired,
+  hasEndTime: PropTypes.bool.isRequired,
+  isAuction: PropTypes.bool.isRequired,
   isClosed: PropTypes.bool.isRequired,
   isLiveOpen: PropTypes.bool.isRequired,
   isMobile: PropTypes.bool.isRequired,
@@ -81,13 +96,15 @@ const mapStateToProps = (state) => {
     liveAuctionUrl
   } = state.app
 
-  const { cover_image, name } = auction.toJSON()
+  const { cover_image, end_at, is_auction, is_closed, name } = auction.toJSON()
   const coverImage = get(cover_image, 'cropped.url', '')
 
   return {
     auction,
     coverImage,
-    isClosed: state.artworkBrowser.isClosed,
+    hasEndTime: Boolean(end_at),
+    isAuction: is_auction,
+    isClosed: is_closed,
     isLiveOpen,
     isMobile,
     liveAuctionUrl,

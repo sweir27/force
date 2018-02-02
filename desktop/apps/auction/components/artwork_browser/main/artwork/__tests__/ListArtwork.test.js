@@ -21,6 +21,7 @@ describe('auction/components/artwork_browser/main/artwork/ListArtwork.test', () 
         Component: ListArtwork,
         props: {
           saleArtwork: { _id: 'foo', id: 'bar' },
+          isAuction: true,
           isClosed: true
         }
       })
@@ -28,16 +29,44 @@ describe('auction/components/artwork_browser/main/artwork/ListArtwork.test', () 
       wrapper.find(BidStatus).length.should.equal(0)
     })
 
-    it('renders a <BidStatus /> component is not closed', () => {
+    it('does not render a <BidStatus /> component if not an auction', () => {
       const { wrapper } = renderTestComponent({
         Component: ListArtwork,
         props: {
           saleArtwork: { _id: 'foo', id: 'bar' },
+          isAuction: false,
+          isClosed: false
+        }
+      })
+
+      wrapper.find(BidStatus).length.should.equal(0)
+    })
+
+    it('renders a <BidStatus /> component is an auction', () => {
+      const { wrapper } = renderTestComponent({
+        Component: ListArtwork,
+        props: {
+          saleArtwork: { _id: 'foo', id: 'bar' },
+          isAuction: true,
           isClosed: false
         }
       })
 
       wrapper.find(BidStatus).length.should.equal(1)
+    })
+
+    it('renders a sale_message if not an auction', () => {
+      const { wrapper } = renderTestComponent({
+        Component: ListArtwork,
+        props: {
+          sale_message: '$1000',
+          saleArtwork: { _id: 'foo', id: 'bar' },
+          isAuction: false,
+          isClosed: false
+        }
+      })
+
+      wrapper.html().should.containEql('$1000')
     })
   })
 })

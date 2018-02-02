@@ -1,11 +1,11 @@
 import * as actions from 'desktop/apps/auction/actions/artworkBrowser'
 import App from 'desktop/apps/auction/components/App'
 import Articles from 'desktop/collections/articles.coffee'
-import ArticlesQuery from 'desktop/apps/auction/utils/queries/articles'
+import ArticlesQuery from 'desktop/apps/auction/queries/articles'
 import Auction from 'desktop/models/auction.coffee'
-import MeQuery from 'desktop/apps/auction/utils/queries/me'
+import MeQuery from 'desktop/apps/auction/queries/me'
 import React from 'react'
-import SaleQuery from 'desktop/apps/auction/utils/queries/sale'
+import SaleQuery from 'desktop/apps/auction/queries/sale'
 import auctionReducer from 'desktop/apps/auction/reducers'
 import configureStore from 'desktop/components/react/utils/configureStore'
 import footerItems from 'desktop/apps/auction/utils/footerItems'
@@ -29,11 +29,6 @@ export async function index (req, res, next) {
     res.locals.sd.AUCTION = sale
     fetchUser(req, res)
 
-    const { me } = await metaphysics({
-      query: MeQuery(sale.id),
-      req: req
-    })
-
     let articles = []
 
     try {
@@ -48,11 +43,42 @@ export async function index (req, res, next) {
     // TODO: Refactor out Backbone
     const auctionModel = new Auction(sale)
 
+    /**
+     * An e-commerce sale is a collection of artworks that can be sold over a
+     * fixed period of time. See https://github.com/artsy/auctions/blob/master/auctions_support_faq.md#how-do-i-create-an-e-commerce-sale
+     * for instructions on how to create.
+     */
+    const isEcommerceSale = !sale.is_auction
+
+    // Only query against actual Auctions. Since an e-commerce sale is not an
+    // auction there are no works to bid on and the  `me { ... }` query, which
+    // makes a request for lot_standings, 404's with a "Sale not found".
+    let me = {}
+
+    if (!isEcommerceSale) {
+      ({ me } = await metaphysics({
+        query: MeQuery(sale.id),
+        req: req
+      }))
+    }
+
+    // If an e-commerce sale, remove all sort options that are Auction related
+    let artworkBrowserSortOptions = auctionWorksInitialState.sortMap
+    let sort = auctionWorksInitialState.filterParams.sort
+    if (isEcommerceSale) {
+      artworkBrowserSortOptions = {
+        '-searchable_estimate': 'Most Expensive',
+        'searchable_estimate': 'Least Expensive'
+      }
+      sort = '-searchable_estimate'
+    }
+
     const store = configureStore(auctionReducer, {
       app: u({
         articles: new Articles(articles),
         auction: auctionModel,
         footerItems: footerItems,
+        isEcommerceSale,
         isLiveOpen: auctionModel.isLiveOpen(),
         isMobile: res.locals.sd.IS_MOBILE,
         liveAuctionUrl: getLiveAuctionUrl(auctionModel.get('id'), {
@@ -62,11 +88,14 @@ export async function index (req, res, next) {
       }, appInitialState),
 
       artworkBrowser: u({
+        // FIXME: This is a temporary fix to update UI
         filterParams: {
-          sale_id: saleId
+          sale_id: saleId,
+          sort
         },
         isClosed: sale.is_closed,
         requestID: req.id,
+        sortMap: u.constant(artworkBrowserSortOptions),
         symbol: sale.symbol,
         user: res.locals.sd.CURRENT_USER
       }, auctionWorksInitialState)
@@ -82,6 +111,9 @@ export async function index (req, res, next) {
       const layout = await renderLayout({
         basePath: res.app.get('views'),
         layout: '../../../../components/main_layout/templates/react_index.jade',
+        config: {
+          styledComponents: true
+        },
         blocks: {
           head: 'meta.jade',
           body: (props) => <App store={store} {...props} />

@@ -41,7 +41,7 @@ module.exports = (req, res, next) ->
   res.locals.sd.REFLECTION = ua.match('PhantomJS')?
   res.locals.sd.REQUEST_TIMESTAMP = Date.now()
   res.locals.sd.NOTIFICATION_COUNT = req.cookies?['notification-count']
-  res.locals.sd.USER_AGENT = res.locals.userAgent = ua
+  res.locals.sd.USER_AGENT = res.locals.userAgent = escape(ua)
   res.locals.sd.REQUEST_ID = req.id
   res.locals.sd.IS_MOBILE = Boolean(
     (ua.match(/iPhone/i) && !ua.match(/iPad/i)) ||
@@ -50,5 +50,10 @@ module.exports = (req, res, next) ->
     (ua.match(/BB10/i)) ||
     (ua.match(/BlackBerry/i))
   )
+
+  if req.query?.onboarding_test
+    res.cookie("onboarding_test", req.query?.onboarding_test, expires: new Date(Date.now() + 31536000000))
+
+  res.locals.sd.ONBOARDING_TEST = req.cookies?["onboarding_test"]
 
   next()
