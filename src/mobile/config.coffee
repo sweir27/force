@@ -17,6 +17,7 @@ module.exports =
   COOKIE_DOMAIN: null
   DEFAULT_CACHE_TIME: 3600
   DISABLE_IMAGE_PROXY: false
+  DEPLOY_ENV: null
   EDITORIAL_ADMINS: 'craig,halley,marina,casey,molly,cab,charles'
   EMAIL_SIGNUP_IMAGES_ID: '572a7996b5989e6f98f77992'
   EMBEDLY_KEY: null
@@ -29,8 +30,6 @@ module.exports =
   GEMINI_CLOUDFRONT_URL: 'https://d7hftxdivxxvm.cloudfront.net'
   GOOGLE_ANALYTICS_ID: 'UA-12450662-6'
   GOOGLE_MAPS_API_KEY: null
-  HASHTAG_LAB_ADS_ALLOWLIST: ''
-  HASHTAG_LAB_ADS_ENABLED: false
   IMAGE_PROXY: 'GEMINI'
   MAILCHIMP_AUCTION_LIST_ID: 'b7b9959ee0'
   MAILCHIMP_KEY: null
