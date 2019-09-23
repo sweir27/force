@@ -12,8 +12,8 @@ module.exports =
   APP_URL: 'http://localhost:3003'
   ARTSY_EDITORIAL_CHANNEL: '5759e3efb5989e6f98f77993'
   CALENDAR_URL: 'http://localhost:3003' # For redirecting to .ics files
-  CLIENT_ID: 'e750db60ac506978fc70'
-  CLIENT_SECRET: '3a33d2085cbd1176153f99781bbce7c6'
+  CLIENT_ID: null
+  CLIENT_SECRET: null
   COOKIE_DOMAIN: null
   DEFAULT_CACHE_TIME: 3600
   DISABLE_IMAGE_PROXY: false
@@ -25,13 +25,11 @@ module.exports =
   FACEBOOK_SECRET: null
   FAIR_CHANNEL_ID: '5759e4f3b5989e6f98f77998'
   FORCE_CLOUDFRONT_URL: 'https://d3vpvtm3t56z1n.cloudfront.net'
-  GALLERY_INSIGHTS_LIST: '95ac2900c4'
   GEMINI_CLOUDFRONT_URL: 'https://d7hftxdivxxvm.cloudfront.net'
   GOOGLE_ANALYTICS_ID: 'UA-12450662-6'
   GOOGLE_MAPS_API_KEY: null
   IMAGE_PROXY: 'GEMINI'
   MAILCHIMP_AUCTION_LIST_ID: 'b7b9959ee0'
-  MAILCHIMP_KEY: null
   MOBILE_MARKETING_SIGNUP_MODALS: '[{"slug":"ca1","copy":"An art collection for every budget","image":"http://files.artsy.net/images/modal-collect-art.jpg"},{"slug":"ca2","copy":"Buy art from the best galleries and auction houses","image":"http://files.artsy.net/images/modal-collect-art.jpg"},{"slug":"ca3","copy":"Discover and Buy Works from Seattle Art Fair 2017","image":"http://files.artsy.net/images/seattle-art-fair-modal.jpg","photoCredit":"Sarah Cain, waves, 2016; Courtesy of the artist and Galerie Lelong & Co., New York"}]'
   MAX_POLLS_FOR_MAX_BIDS: 20
   MAX_SOCKETS: -1
@@ -60,7 +58,6 @@ module.exports =
   STRIPE_PUBLISHABLE_KEY: null
   TARGET_CAMPAIGN_URL: '/seattle-art-fair-2017'
   TRACK_PAGELOAD_PATHS: null
-  TWITTER_CONSUMER_KEY: null
   VOLLEY_ENDPOINT: null
 # Override any values with env variables if they exist.
 # You can set JSON-y values for env variables as well such as "true" or
