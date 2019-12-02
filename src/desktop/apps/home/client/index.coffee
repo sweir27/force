@@ -28,6 +28,25 @@ module.exports.HomeView = class HomeView extends Backbone.View
     new HomeAuthRouter
     Backbone.history.start pushState: true
 
+    if !sd.CURRENT_USER
+      isExperiment = sd.HOMEPAGE_COLLECTION_HUB_ENTRYPOINTS_TEST is "experiment"
+      targetElement = if isExperiment then ".home-hubs-entry" else ".home-browse-module"
+      # Remove after closing the homepage hubs entry points test
+      $(targetElement).waypoint(() ->
+        # Fire impression event
+        analytics.track("Impression", {
+          context_page: "Home",
+          context_module: "HubEntrypoint",
+          subject: if isExperiment then "Featured Categories" else "Browse Works for Sale",
+        })
+        # Fire experiment or control viewed event
+        splitTest("homepage_collection_hub_entrypoints_test").view()
+      ,
+      {
+        triggerOnce: true,
+        offset: 500,
+      })
+
     # Render Featured Sections
     @setupHeroUnits()
     @setupFeaturedShows()

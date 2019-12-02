@@ -1,12 +1,12 @@
 /* eslint-env mocha */
 import { setup, teardown } from "./helpers"
 
-describe("Collect page", () => {
+xdescribe("Collect page", () => {
   let metaphysics, browser
 
   before(async () => {
     ;({ metaphysics, browser } = await setup())
-    metaphysics.post("/", (req, res) => {
+    metaphysics.post("/v2", (req, res) => {
       res.send(require("./fixtures/metaphysics/collect"))
     })
   })

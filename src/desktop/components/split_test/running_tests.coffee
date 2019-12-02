@@ -25,10 +25,10 @@
 # module.exports = {}
 
 module.exports = {
-  collection_hubs:
-    key: "collection_hubs"
+  homepage_collection_hub_entrypoints_test:
+    key: "homepage_collection_hub_entrypoints_test"
     outcomes:
-      control: 100
-      experiment: 0
-    edge: 'experiment'
+      control: 50
+      experiment: 50
+    edge: "experiment"
 }

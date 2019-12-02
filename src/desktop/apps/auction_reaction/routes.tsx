@@ -2,6 +2,7 @@ import { buildServerApp } from "reaction/Artsy/Router/server"
 import { buildServerAppContext } from "desktop/lib/buildServerAppContext"
 import { routes } from "reaction/Apps/Auction/routes"
 import { stitch } from "@artsy/stitch"
+import { data as sd } from "sharify"
 
 const renderPage = async ({ layoutTemplate }, req, res, next) => {
   try {
@@ -73,4 +74,26 @@ export const bidderRegistration = async (req, res, next) => {
 
 export const auctionFAQRoute = async (req, res, next) => {
   await renderPage({ layoutTemplate: "react_index" }, req, res, next)
+}
+
+export const confirmBidRoute = async (req, res, next) => {
+  if (!res.locals.sd.CURRENT_USER) {
+    return res.redirect(
+      `/login?redirectTo=${encodeURIComponent(req.originalUrl)}`
+    )
+  } else {
+    await renderPage({ layoutTemplate: "react_minimal_header" }, req, res, next)
+  }
+}
+
+export const confirmBidRouteOverride = async (req, res, next) => {
+  try {
+    if (sd.ENABLE_NEW_CONFIRM_BID_FORM) {
+      await confirmBidRoute(req, res, next)
+    } else {
+      next()
+    }
+  } catch (error) {
+    next(error)
+  }
 }

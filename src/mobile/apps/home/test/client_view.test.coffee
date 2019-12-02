@@ -11,8 +11,8 @@ describe 'HomePageView', ->
     benv.setup =>
       benv.expose
         $: benv.require 'jquery'
+        analytics: { track: sinon.stub() }
         Element: window.Element
-
       Backbone.$ = $
       benv.render resolve(__dirname, '../templates/page.jade'), {
         heroUnits: []
@@ -22,6 +22,7 @@ describe 'HomePageView', ->
           ['featuredItemsTemplate', 'currentShowsTemplate', 'artworkColumnsTemplate']
         sinon.stub Backbone, 'sync'
         @HomePageView.__set__ 'Flickity', @Flickity = sinon.stub()
+        @HomePageView.__set__ 'sd', {}
         @view = new @HomePageView
         done()
 
