@@ -74,10 +74,10 @@
   resolved "https://registry.yarnpkg.com/@artsy/react-responsive-media/-/react-responsive-media-2.0.0-beta.5.tgz#d61e1a9f215d38d90ec2bb97dc1ff7409d0346fa"
   integrity sha512-XRYA77v/j3mVInwy5EYb8NtmMkkAD1/XDxDi45BO0oduv4hsljJfjtjK7jN0ziJ6JUm2QTx/t6QwuaT9E7vTuA==
 
-"@artsy/reaction@22.9.1":
-  version "22.9.1"
-  resolved "https://registry.yarnpkg.com/@artsy/reaction/-/reaction-22.9.1.tgz#0f580bab33f498f42937d85643b00106f728b760"
-  integrity sha512-iqECV7EFhfS7cR3vXwLUdwzW+aUBS5FqFS8IelyNXzm2UK7OS+hZWDp/OepR9dD+N7g3dpSQnL10romKT0IjFw==
+"@artsy/reaction@22.9.7":
+  version "22.9.7"
+  resolved "https://registry.yarnpkg.com/@artsy/reaction/-/reaction-22.9.7.tgz#75786ca9f137210efce17e08f0831bb89bdacc90"
+  integrity sha512-2hDl43QQVbUcAvBdiisiXwsaFrPrGzW+UpSPZkOA+hARR9p4EwZ1mIwZJXT9fgeTrodH7boNWYeiLGvunfsjhw==
   dependencies:
     "@artsy/detect-responsive-traits" "^0.0.5"
     "@artsy/react-html-parser" "^3.0.2"
@@ -15315,6 +15315,11 @@ tsutils@^3.0.0:
   dependencies:
     tslib "^1.8.1"
 
+tti-polyfill@0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/tti-polyfill/-/tti-polyfill-0.2.2.tgz#f7bbf71b13afa9edf60c8bb0d0c05f134e1513b9"
+  integrity sha512-URIoJxvsHThbQEJij29hIBUDHx9UNoBBCQVjy7L8PnzkqY8N6lsAI6h8JrT1Wt2lA0avus/DkuiJxd9qpfCpqw==
+
 tty-browserify@0.0.0:
   version "0.0.0"
   resolved "https://registry.yarnpkg.com/tty-browserify/-/tty-browserify-0.0.0.tgz#a157ba402da24e9bf957f9aa69d524eed42901a6"
@@ -15395,10 +15400,10 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@3.7.2:
-  version "3.7.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.7.2.tgz#27e489b95fa5909445e9fef5ee48d81697ad18fb"
-  integrity sha512-ml7V7JfiN2Xwvcer+XAf2csGO1bPBdRbFCkYBczNZggrBZ9c7G3riSUeJmqEU5uOtXNPMhE3n+R4FA/3YOAWOQ==
+typescript@3.7.3:
+  version "3.7.3"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.7.3.tgz#b36840668a16458a7025b9eabfad11b66ab85c69"
+  integrity sha512-Mcr/Qk7hXqFBXMN7p7Lusj1ktCBydylfQM/FZCk5glCNQJrCUKPkMHdo9R0MTFWsC/4kPFvDS0fDPvukfCkFsw==
 
 ua-parser-js@0.7.19, ua-parser-js@^0.7.18:
   version "0.7.19"
