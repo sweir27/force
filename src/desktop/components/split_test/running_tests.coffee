@@ -25,8 +25,8 @@
 # module.exports = {}
 
 module.exports = {
-  homepage_collection_hub_entrypoints_test:
-    key: "homepage_collection_hub_entrypoints_test"
+  client_side_routing:
+    key: "client_side_routing"
     outcomes:
       control: 50
       experiment: 50
